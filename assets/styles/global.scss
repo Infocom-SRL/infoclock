@@ -1,0 +1,9 @@
+html, body, #__nuxt, #__nuxt > div:first-child, #__layout,
+{
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+html {
+  font-size: 16px;
+}
