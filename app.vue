@@ -1,5 +1,13 @@
 <script setup lang="ts">
-// Date
+// Meta
+useHead({
+  title: 'Infoclock',
+  meta: [
+    { name: 'description', content: 'Infocom Clock' }
+  ]
+});
+
+// Clock
 const timeElRef = ref<HTMLDivElement | null>(null);
 const dateElRef = ref<HTMLDivElement | null>(null);
 
@@ -29,6 +37,7 @@ onMounted(() => {
   updateTime();
   setInterval(updateTime, 1000);
 });
+
 </script>
 
 <template>
