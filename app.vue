@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// Meta
 import { getCurrentJoke } from "~/utils/jokes";
 
 useHead({
@@ -9,15 +8,7 @@ useHead({
   ],
 });
 
-// Clock
-const timeElRef = ref<HTMLDivElement | null>(null);
-const dateElRef = ref<HTMLDivElement | null>(null);
-
-const updateTime = () => {
-  const now = new Date();
-  timeElRef.value!.textContent = now.toLocaleTimeString("fr", localeTimeSettings);
-  dateElRef.value!.textContent = now.toLocaleDateString("fr", localeDateSettings);
-};
+const now = useNow();
 
 // Jokes
 const {data: jokes} = await useFetch<Messages>("https://gist.githubusercontent.com/Keiishu/27df0f09c05a87552b5c557d9da0b37a/raw", {
@@ -35,9 +26,7 @@ const updateJokes = () => {
 
 // Init
 onMounted(() => {
-  //updateTime();
   updateJokes();
-  //setInterval(updateTime, 1000);
   setInterval(updateJokes, 1000 * 60 * 5);
 });
 </script>
@@ -45,7 +34,6 @@ onMounted(() => {
 <template>
   <div>
     <NuxtRouteAnnouncer/>
-    <NuxtLoadingIndicator/>
     <div class="h-full relative">
       <!-- Logo -->
       <div class="absolute top-4 left-4">
@@ -54,9 +42,9 @@ onMounted(() => {
       <!-- Clock -->
       <div class="flex items-center justify-center h-full relative">
         <div class="flex flex-col gap-4 items-center justify-center">
-          <div ref="dateElRef" class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"/>
-<!--          <div ref="timeElRef" class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>-->
-          <NuxtTime :datetime="Date.now()" second="numeric" month="long" day="numeric" class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>
+          <NuxtTime :datetime="now" date-style="full" locale="fr" class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"/>
+          <NuxtTime :datetime="now" second="2-digit" minute="2-digit" hour="2-digit" locale="fr"
+                    class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>
         </div>
 
         <!-- Jokes -->
