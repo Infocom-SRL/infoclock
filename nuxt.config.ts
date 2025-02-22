@@ -3,11 +3,11 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  compatibilityDate: "2024-09-01",
+  compatibilityDate: "2025-02-22",
   devServer: {
     host: "127.0.0.1",
   },
-  modules: ["@nuxtjs/color-mode", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "nuxt-time"],
+  modules: ["@vueuse/nuxt", "@nuxtjs/color-mode", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "nuxt-time"],
   runtimeConfig: {
     apiUrl: "http://127.0.0.1:8080",
   },

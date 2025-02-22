@@ -35,9 +35,9 @@ const updateJokes = () => {
 
 // Init
 onMounted(() => {
-  updateTime();
+  //updateTime();
   updateJokes();
-  setInterval(updateTime, 1000);
+  //setInterval(updateTime, 1000);
   setInterval(updateJokes, 1000 * 60 * 5);
 });
 </script>
@@ -55,7 +55,8 @@ onMounted(() => {
       <div class="flex items-center justify-center h-full relative">
         <div class="flex flex-col gap-4 items-center justify-center">
           <div ref="dateElRef" class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"/>
-          <div ref="timeElRef" class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>
+<!--          <div ref="timeElRef" class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>-->
+          <NuxtTime :datetime="Date.now()" second="numeric" month="long" day="numeric" class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>
         </div>
 
         <!-- Jokes -->
