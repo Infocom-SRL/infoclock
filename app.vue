@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const now = useNow();
+const now = useNow({interval: 1000});
 const dayjs = useDayjs();
 
 // Messages
@@ -29,7 +29,7 @@ useIntervalFn(() => {
     <div class="h-full relative">
       <!-- Logo -->
       <div class="absolute top-4 left-4">
-        <NuxtImg src="/logo.jpg" sizes="100px md:150px xl:200px 2xl:250px" alt="Infocom Logo"/>
+        <NuxtImg src="/logo.jpg" sizes="100px md:150px xl:200px 2xl:250px" quality="100" alt="Infocom Logo"/>
       </div>
       <!-- Clock -->
       <div class="flex items-center justify-center h-full relative">
