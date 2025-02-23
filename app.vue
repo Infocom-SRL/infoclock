@@ -1,34 +1,26 @@
 <script setup lang="ts">
-import { getCurrentJoke } from "~/utils/jokes";
-
-useHead({
-  title: "Infoclock",
-  meta: [
-    {name: "description", content: "Infocom Clock"},
-  ],
-});
-
 const now = useNow();
+const dayjs = useDayjs();
 
-// Jokes
-const {data: jokes} = await useFetch<Messages>("https://gist.githubusercontent.com/Keiishu/27df0f09c05a87552b5c557d9da0b37a/raw", {
+// Messages
+const {data: messages} = await useFetch<Messages>("https://gist.githubusercontent.com/Keiishu/27df0f09c05a87552b5c557d9da0b37a/raw", {
   mode: "cors",
-  transform: (data: string) => JSON.parse(data),
+  lazy: true,
+  responseType: "json",
 });
 
-const jokeElRef = ref<HTMLDivElement | null>(null);
+function getCurrentMessage() {
+  if (!messages.value || !messages.value.messages) return defaultMessage;
+  return messages.value?.messages.find((message) => {
+    return dayjs().isBetween(dayjs(message.start, "hh:mm"), dayjs(message.end, "hh:mm")) && message.days.includes(dayjs().isoWeekday());
+  });
+}
 
-const updateJokes = () => {
-  const now = new Date();
-  const joke: Message = getCurrentJoke(now, jokes.value);
-  jokeElRef.value!.textContent = joke.text;
-};
+const currentMessage = ref<Message | undefined>(getCurrentMessage());
 
-// Init
-onMounted(() => {
-  updateJokes();
-  setInterval(updateJokes, 1000 * 60 * 5);
-});
+useIntervalFn(() => {
+  currentMessage.value = getCurrentMessage();
+}, 1000 * 60 * 5);
 </script>
 
 <template>
@@ -42,14 +34,17 @@ onMounted(() => {
       <!-- Clock -->
       <div class="flex items-center justify-center h-full relative">
         <div class="flex flex-col gap-4 items-center justify-center">
-          <NuxtTime :datetime="now" date-style="full" locale="fr" class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"/>
+          <NuxtTime :datetime="now" date-style="full" locale="fr"
+                    class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl"/>
           <NuxtTime :datetime="now" second="2-digit" minute="2-digit" hour="2-digit" locale="fr"
                     class="text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl"/>
         </div>
 
         <!-- Jokes -->
-        <div ref="jokeElRef" class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl max-w-2xl text-center
-                                  break-words text-gray-800 absolute bottom-24"/>
+        <div class="md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl max-w-2xl text-center
+                                  break-words text-gray-800 absolute bottom-24">
+          {{ currentMessage?.text }}
+        </div>
       </div>
     </div>
   </div>
