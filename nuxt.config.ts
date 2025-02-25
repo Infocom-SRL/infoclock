@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-time",
     "dayjs-nuxt",
+    "nuxt-svgo"
   ],
 
   app: {
@@ -36,6 +37,11 @@ export default defineNuxtConfig({
   css: ["@/assets/styles/global.css"],
   colorMode: {
     preference: "light",
+  },
+
+  svgo: {
+    autoImportPath: "@/assets/img",
+    componentPrefix: "svg",
   },
 
   dayjs: {

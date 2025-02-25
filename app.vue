@@ -11,7 +11,7 @@ const {currentMessage} = useMessages();
     <div class="h-full relative">
       <!-- Logo -->
       <div class="absolute top-4 left-4">
-        <NuxtImg src="/logo.jpg" sizes="100px md:150px xl:200px 2xl:250px" quality="100" alt="Infocom Logo"/>
+        <SvgLogo class="w-24 md:w-36 xl:w-48 2xl:w-60" alt="Infocom Logo"/>
       </div>
       <!-- Clock -->
       <div class="flex items-center justify-center h-full relative">
