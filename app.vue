@@ -1,26 +1,8 @@
 <script setup lang="ts">
-const now = useNow({interval: 1000});
-const dayjs = useDayjs();
+const now = useNow();
 
 // Messages
-const {data: messages} = await useFetch<Messages>("https://gist.githubusercontent.com/Keiishu/27df0f09c05a87552b5c557d9da0b37a/raw", {
-  mode: "cors",
-  lazy: true,
-  responseType: "json",
-});
-
-function getCurrentMessage() {
-  if (!messages.value || !messages.value.messages) return defaultMessage;
-  return messages.value?.messages.find((message) => {
-    return dayjs().isBetween(dayjs(message.start, "hh:mm"), dayjs(message.end, "hh:mm")) && message.days.includes(dayjs().isoWeekday());
-  });
-}
-
-const currentMessage = ref<Message | undefined>(getCurrentMessage());
-
-useIntervalFn(() => {
-  currentMessage.value = getCurrentMessage();
-}, 1000 * 60 * 5);
+const {currentMessage} = useMessages();
 </script>
 
 <template>
@@ -29,7 +11,7 @@ useIntervalFn(() => {
     <div class="h-full relative">
       <!-- Logo -->
       <div class="absolute top-4 left-4">
-        <NuxtImg src="/logo.jpg" sizes="100px md:150px xl:200px 2xl:250px" quality="100" alt="Infocom Logo"/>
+        <SvgLogo class="w-24 md:w-36 xl:w-48 2xl:w-60" alt="Infocom Logo"/>
       </div>
       <!-- Clock -->
       <div class="flex items-center justify-center h-full relative">
