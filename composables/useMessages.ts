@@ -15,15 +15,13 @@ export const useMessages = () => {
   const currentMessage = ref<Message | undefined>();
 
   const fetchMessages = async () => {
-    const {data} = await useFetch<Messages>(
+    messages.value = await $fetch<Messages>(
       "https://gist.githubusercontent.com/Keiishu/27df0f09c05a87552b5c557d9da0b37a/raw",
       {
         mode: "cors",
-        lazy: true,
         responseType: "json",
       },
     );
-    messages.value = data.value;
   };
 
   const getCurrentMessage = () => {
