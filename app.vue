@@ -1,29 +1,37 @@
 <script setup lang="ts">
 import { SparklesIcon } from "lucide-vue-next";
 
+// Date
 const now = useNow();
 
 // Messages
 const {currentMessage} = useMessages();
 
-const particlesEnabled = ref(true);
+// Animations
+const starsEnabled = ref(true);
+const glowingEnabled = ref(true);
+
+const toggleAnimations = () => {
+  starsEnabled.value = !starsEnabled.value;
+  glowingEnabled.value = !glowingEnabled.value;
+};
 </script>
 
 <template>
   <NuxtRouteAnnouncer/>
 
-  <!--    <SmoothGradient/>-->
   <Transition name="fade" mode="out-in">
-    <StarCanvas v-if="particlesEnabled"/>
+    <StarCanvas v-if="starsEnabled"/>
   </Transition>
 
   <div class="h-full">
     <!-- Logo -->
-    <SvgLogo class="absolute top-4 left-4 bg-white w-24 md:w-36 xl:w-48 2xl:w-60" alt="Infocom Logo"
-             :fontControlled="false"/>
+    <SvgLogo class="absolute top-4 left-4 bg-white w-24 md:w-36 xl:w-48 2xl:w-60"
+             :class="{ 'logo': glowingEnabled }"
+             alt="Infocom Logo" :fontControlled="false"/>
 
     <!-- Settings -->
-    <button @click="particlesEnabled = !particlesEnabled"
+    <button @click="toggleAnimations"
             class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-lg z-10
                    opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
       <SparklesIcon class="size-6"/>
@@ -54,5 +62,22 @@ const particlesEnabled = ref(true);
 
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
+}
+
+.logo, .logo > * {
+  filter: drop-shadow(0 0 2px rgba(135, 0, 33, 0.3));
+  animation: glow 6s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(135, 0, 33, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(135, 0, 33, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(135, 0, 33, 0.3));
+  }
 }
 </style>

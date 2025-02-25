@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-time",
     "dayjs-nuxt",
-    "nuxt-svgo"
+    "nuxt-svgo",
   ],
 
   app: {
@@ -49,5 +49,5 @@ export default defineNuxtConfig({
     locales: ["fr"],
     defaultTimezone: "Europe/Brussels",
     plugins: ["timezone", "isBetween", "customParseFormat", "isoWeek"],
-  }
+  },
 });
