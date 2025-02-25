@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["@/assets/styles/global.css"],
+  css: ["@/assets/css/global.css"],
   colorMode: {
     preference: "light",
   },
