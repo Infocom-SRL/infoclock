@@ -1,7 +1,7 @@
 html, body, #__nuxt, #__nuxt > div:first-child, #__layout
 {
-  height: 100vh !important;
-  width: 100vw !important;
+  height: 100dvh !important;
+  width: 100dvw !important;
 }
 
 html {
