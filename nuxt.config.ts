@@ -8,7 +8,15 @@ export default defineNuxtConfig({
     host: "127.0.0.1",
   },
 
-  modules: ["@vueuse/nuxt", "@nuxtjs/color-mode", "@nuxt/image", "@nuxt/eslint", "@nuxtjs/tailwindcss", "nuxt-time", "dayjs-nuxt"],
+  modules: [
+    "@vueuse/nuxt",
+    "@nuxtjs/color-mode",
+    "@nuxt/image",
+    "@nuxt/eslint",
+    "@nuxtjs/tailwindcss",
+    "nuxt-time",
+    "dayjs-nuxt",
+  ],
 
   app: {
     head: {
